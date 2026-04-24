@@ -1,11 +1,10 @@
-name: Deploy Vue3 with PNPM
+name: Deploy Vue3 to GitHub Pages
 
 on:
   push:
     branches: [ main ]
   workflow_dispatch:
 
-# 强制使用 Node.js 24，消除 Node 20 弃用警告
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
@@ -17,31 +16,29 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    steps:
+    steps: 
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 安装 PNPM（修复 pnpm 报错）
       - name: Install PNPM
         uses: pnpm/action-setup@v4
         with:
           version: 9
-          run_install: false  # 关键：关闭自动安装，避免 packages 字段错误
+          run_install: false
 
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 24  # 使用 Node 24，无警告
+          node-version: 24
           cache: 'pnpm'
 
-      # 正确安装依赖
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
       - name: Build
         run: pnpm build
 
-      - name: Upload artifact
+      - name: Upload Pages
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist
@@ -51,8 +48,6 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Deploy to GitHub Pages
-        id: deployment
         uses: actions/deploy-pages@v4
