@@ -7,6 +7,8 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 
 // https://vite.dev/config/
 export default defineConfig({
+  // 👇 加上这一行，仓库名就是你的 GitHub 仓库名
+  base: '/vue3-github-action/' ,
   plugins: [
     vue(),
     vueJsx(),

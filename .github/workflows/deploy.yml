@@ -1,0 +1,45 @@
+# .github/workflows/deploy.yml
+name: Vue3 自动构建部署
+
+# 触发条件：推送到 main 分支就执行
+on:
+  push:
+    branches: [ main ]
+  # 允许手动触发
+  workflow_dispatch:
+
+# 权限配置（必须加，否则无法部署）
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. 拉取代码
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2. 安装 Node.js 20
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          # 缓存依赖，加速构建
+          cache: 'npm'
+
+      # 3. 安装依赖 + 构建 Vue3 项目
+      - name: Install & Build
+        run: |
+          npm ci
+          npm run build
+
+      # 4. 上传 dist 并部署到 GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist  # Vue 打包后的文件夹名称
+      - name: Deploy
+        uses: actions/deploy-pages@v4
