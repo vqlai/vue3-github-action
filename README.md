@@ -1,78 +1,48 @@
-# admin-template
+# vue-project
 
-# 项目技术栈
+This template should help get you started developing with Vue 3 in Vite.
 
-`vue3`、`Vite`、`Element-Plus`、`TypeScript`、`Pinia`、`axios`、`sass`、`eslint`、`prettier`等目前主流前端开发技术
+## Recommended IDE Setup
 
-## 使用方式
+[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
 
-### install
+## Recommended Browser Setup
 
-```
+- Chromium-based browsers (Chrome, Edge, Brave, etc.):
+  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
+  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
+- Firefox:
+  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
+  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+
+## Type Support for `.vue` Imports in TS
+
+TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+
+## Customize configuration
+
+See [Vite Configuration Reference](https://vite.dev/config/).
+
+## Project Setup
+
+```sh
 pnpm install
 ```
 
-### run
+### Compile and Hot-Reload for Development
 
-```
-pnpm run dev
-```
-
-### build
-
-```
-pnpm run build:prod
+```sh
+pnpm dev
 ```
 
-## 功能介绍
+### Type-Check, Compile and Minify for Production
 
-## 文件目录
-
+```sh
+pnpm build
 ```
-admin-template
-├─ .husky                 # husky 配置文件
-├─ .vscode                # VSCode 推荐配置
-├─ mock                   # mock数据
-├─ public                 # 静态资源文件（该文件夹不会被打包）
-├─ scripts                # 脚本文件
-├─ src
-│  ├─ api                 # API 接口管理
-│  ├─ assets              # 静态资源文件
-│  ├─ components          # 全局组件
-│  ├─ config              # 全局配置项
-│  ├─ directives          # 全局指令文件
-│  ├─ enums               # 项目常用枚举
-│  ├─ hooks               # 常用 Hooks 封装
-│  ├─ languages           # 语言国际化 i18n
-│  ├─ layouts             # 框架布局模块
-│  ├─ routers             # 路由管理
-│  ├─ stores              # pinia store
-│  ├─ styles              # 全局样式文件
-│  ├─ typings             # 全局 ts 声明
-│  ├─ utils               # 常用工具库
-│  ├─ views               # 项目所有页面
-│  ├─ App.vue             # 项目主组件
-│  ├─ env.d.ts            # 指定 ts 识别 vue
-│  └─ main.ts             # 项目入口文件
-├─ .editorconfig          # 统一不同编辑器的编码风格
-├─ .env.development       # 开发环境配置
-├─ .env.production        # 生产环境配置
-├─ .env.test              # 测试环境配置
-├─ .eslintignore          # 忽略 Eslint 校验
-├─ .eslintrc.cjs          # Eslint 校验配置文件
-├─ .gitignore             # 忽略 git 提交
-├─ .prettierignore        # 忽略 Prettier 格式化
-├─ .prettierrc.json       # Prettier 格式化配置
-├─ .stylelintignore       # 忽略 stylelint 格式化
-├─ .stylelintrc.js        # stylelint 样式格式化配置
-├─ commitlint.config.js   # git 提交规范配置
-├─ index.html             # 入口 html
-├─ LICENSE                # 开源协议文件
-├─ lint-staged.config     # lint-staged 配置文件
-├─ pnpm-lock.json         # 依赖包包版本锁
-├─ package.json           # 依赖包管理
-├─ README.md              # README 介绍
-├─ STANDARD.md            # 项目编码规范说明书
-├─ tsconfig.json          # typescript 全局配置
-└─ vite.config.ts         # vite 全局配置文件
+
+### Lint with [ESLint](https://eslint.org/)
+
+```sh
+pnpm lint
 ```

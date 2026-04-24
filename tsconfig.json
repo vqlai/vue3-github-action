@@ -1,37 +1,11 @@
 {
-  "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "strict": false,
-    "jsx": "preserve",
-    "isolatedModules": true,
-    "allowSyntheticDefaultImports": true, // 允许默认导入
-    "preserveValueImports": false,
-    "sourceMap": true, // 编译时是否生成.map文件
-    "allowJs": false, // 是否允许编辑js文件
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "noEmit": true, // 不生成编译文件
-    "esModuleInterop": true,
-    "lib": ["ESNext", "DOM"],
-    "types": ["element-plus/global", "node", "vite/client"],
-    "typeRoots": ["./node_modules/@types/", "./types"],
-    "baseUrl": "./", // 解析非相对模块的基地址，默认是当前目录
-    "paths": {
-      "@/*": ["src/*"] // 路径映射，相当于baseUrl，代码输入@时自动提示补全路径
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    },
+    {
+      "path": "./tsconfig.app.json"
     }
-  },
-  "include": [
-    "env.d.ts",
-    "mock/*.ts",
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue",
-    "src/**/*.d.ts",
-    "vite.config.ts"
-  ],
-  "exclude": ["node_modules", "dist", "**/*.js"]
-  // "extends": "@vue/tsconfig/tsconfig.web.json",
-  // "references": [{ "path": "./tsconfig.node.json" }] // 指定引用项目
+  ]
 }

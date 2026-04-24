@@ -1,14 +1,11 @@
+<script setup lang="ts"></script>
+
 <template>
-  <router-view></router-view>
-  <!-- <RouterView /> -->
+  <h1>You did it!</h1>
+  <p>
+    Visit <a href="https://vuejs.org/" target="_blank" rel="noopener">vuejs.org</a> to read the
+    documentation
+  </p>
 </template>
 
-<script setup lang="ts">
-// import { RouterLink, RouterView } from 'vue-router'
-import { useTheme } from './utils/theme'
-// 初始化主题配置
-const { initTheme } = useTheme()
-initTheme()
-</script>
-
-<style scoped lang="scss"></style>
+<style scoped></style>
