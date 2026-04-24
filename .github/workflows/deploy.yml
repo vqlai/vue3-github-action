@@ -21,7 +21,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install PNPM
-        uses: npm install -g pnpm
+        run: npm install -g pnpm
         with:
           version: 9
           run_install: false
@@ -33,7 +33,7 @@ jobs:
           cache: 'pnpm'
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --no-frozen-lockfile
 
       - name: Build
         run: pnpm build
@@ -41,7 +41,7 @@ jobs:
       - name: Upload Pages
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: ./dist
 
   deploy:
     needs: build
