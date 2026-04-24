@@ -5,6 +5,10 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+# 强制使用 Node.js 24，消除 Node 20 弃用警告
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 permissions:
   contents: read
   pages: write
@@ -13,33 +17,30 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 👇 关键：安装 PNPM
+      # 安装 PNPM（修复 pnpm 报错）
       - name: Install PNPM
         uses: pnpm/action-setup@v4
         with:
           version: 9
+          run_install: false  # 关键：关闭自动安装，避免 packages 字段错误
 
-      # 👇 安装 Node
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: 'pnpm'  # 缓存加速
+          node-version: 24  # 使用 Node 24，无警告
+          cache: 'pnpm'
 
-      # 👇 PNPM 安装依赖
+      # 正确安装依赖
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      # 👇 PNPM 构建
       - name: Build
         run: pnpm build
 
-      # 上传 dist
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
@@ -52,6 +53,6 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Deploy
+      - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
