@@ -1,45 +1,57 @@
-# .github/workflows/deploy.yml
-name: Vue3 自动构建部署
+name: Deploy Vue3 with PNPM
 
-# 触发条件：推送到 main 分支就执行
 on:
   push:
     branches: [ main ]
-  # 允许手动触发
   workflow_dispatch:
 
-# 权限配置（必须加，否则无法部署）
 permissions:
   contents: read
   pages: write
   id-token: write
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      # 1. 拉取代码
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 2. 安装 Node.js 20
-      - name: Setup Node.js
+      # 👇 关键：安装 PNPM
+      - name: Install PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      # 👇 安装 Node
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          # 缓存依赖，加速构建
-          cache: 'npm'
+          node-version: 20
+          cache: 'pnpm'  # 缓存加速
 
-      # 3. 安装依赖 + 构建 Vue3 项目
-      - name: Install & Build
-        run: |
-          npm ci
-          npm run build
+      # 👇 PNPM 安装依赖
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
-      # 4. 上传 dist 并部署到 GitHub Pages
-      - name: Deploy to GitHub Pages
+      # 👇 PNPM 构建
+      - name: Build
+        run: pnpm build
+
+      # 上传 dist
+      - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: dist  # Vue 打包后的文件夹名称
+          path: ./dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - name: Deploy
+        id: deployment
         uses: actions/deploy-pages@v4
