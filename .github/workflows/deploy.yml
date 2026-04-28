@@ -3,6 +3,8 @@ name: Deploy Vue3 to GitHub Pages
 on:
   push:
     branches: [main]
+
+  # 允许手动触发
   workflow_dispatch:
 
 env:
